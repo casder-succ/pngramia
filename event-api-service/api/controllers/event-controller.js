@@ -11,7 +11,7 @@
   It is a good idea to list the modules that your application depends on in the package.json in the project root
  */
 var util = require('util');
-
+var faker = require('faker');
 /*
  Once you 'require' a module you can reference the things that it exports.  These are defined in module.exports.
 
@@ -36,16 +36,24 @@ module.exports = {
  */
 function getEvents(req, res) {
   // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-  var date = req.swagger.params.date.value || 'stranger';
-  var name = util.format('Festivale %s!', date);
+  var date = req.swagger.params.date.value || '2020-03-01';
+  var name = util.format('Festival %s', date);
 
   // this sends back a JSON response which is a single string
   res.json([
     {
-      "id": "12",
-      "name": name,
-      "date": date,
-      "location": "Minsk"
+      "id": '' + faker.random.number(),
+      "name": name + ' by ' + faker.name.findName(),
+      "location": "Minsk, Independence av. 152",
+      "image": "fest.jpg",
+      "date": date
+    },
+    {
+      "id": '' + faker.random.number(),
+      "name": name + ' by ' + faker.name.findName(),
+      "location": "Minsk, Independence av. 152",
+      "image": "fest.jpg",
+      "date": date
     }
   ]);
 }
